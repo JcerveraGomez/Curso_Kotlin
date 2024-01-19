@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -23,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -58,6 +60,10 @@ fun RoomCrud (navController:NavController){
         )
     )
     var typeOfDialog = remember { mutableStateOf("") }
+    LaunchedEffect(Unit){
+        Log.i("BBDD", "Lanzado")
+    }
+
     val allpersonas by viewModelPersonas.allPersonas.observeAsState(listOf())
     Log.i("BBDD", allpersonas.toString())
 
@@ -77,7 +83,8 @@ fun RoomCrud (navController:NavController){
         if (showCrudDialog) {
 
             DialogCrud(typeOfDialog.value,
-                onDismiss = { showCrudDialog = false },
+                onDismiss = { showCrudDialog = false
+                    navController.navigate("RoomCrud")},
                 viewModelPersonas,
                 allpersonas
 
@@ -108,6 +115,11 @@ fun RoomCrud (navController:NavController){
                             IconButton(onClick = { showCrudDialog = true
                                 typeOfDialog.value="delete"}) {
                                 Icon(Icons.Filled.Delete, contentDescription =null )
+
+                            }
+                            IconButton(onClick = { showCrudDialog = true
+                                typeOfDialog.value="update"}) {
+                                Icon(Icons.Filled.Refresh, contentDescription =null )
 
                             }
 

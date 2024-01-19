@@ -43,14 +43,14 @@ fun ApiScreen(navController: NavController) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text ="Kotlin")
+                Text(text ="API")
                 Row(modifier = Modifier.padding(10.dp), horizontalArrangement = Arrangement.Center) {
                     Box(modifier = Modifier.padding(horizontal = 10.dp)) {
                         ElevatedButton(
                             shape = RoundedCornerShape(20),
                             colors = ButtonDefaults.elevatedButtonColors(containerColor = LightOrange),
                             onClick = { navController.navigate("RoomCrud")}) {
-                            Text(text = "Fundamentos", color = Color.Black)
+                            Text(text = "CRUD ROOM", color = Color.Black)
                         }
                     }
 
@@ -60,8 +60,8 @@ fun ApiScreen(navController: NavController) {
                         ElevatedButton(
                             shape = RoundedCornerShape(20),
                             colors = ButtonDefaults.elevatedButtonColors(containerColor = LightOrange),
-                            onClick = { navController.navigate(Routes.Kotlin.createRoute("POO")) }) {
-                            Text(text = "POO", color = Color.Black)
+                            onClick = { navController.navigate("PokeApi")}) {
+                            Text(text = "PokeApi", color = Color.Black)
 
                         }
                     }

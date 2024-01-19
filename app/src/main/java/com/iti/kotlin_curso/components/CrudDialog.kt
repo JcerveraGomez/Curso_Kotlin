@@ -19,6 +19,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -62,11 +63,14 @@ import java.util.Date
 @Composable
 fun DialogCrud(action: String, onDismiss: () -> Unit, viewModel: PersonasViewModel,allPersonas: List<Persona>) {
 var persona = Persona()
+    var uuid by remember { mutableStateOf("") }
+    var selectedPersona by remember { mutableStateOf<Persona?>(null) }
+
     AlertDialog(
         icon = {
-            Icon(Icons.Filled.Add, contentDescription = null)
+            Icon(Icons.Filled.Settings, contentDescription = null)
         },
-        title = { Text(text = "Insertar Persona")},
+        title = { Text(text = "CRUD Persona")},
         onDismissRequest = { onDismiss() },
         text = {
             Box(
@@ -75,34 +79,51 @@ var persona = Persona()
                 // Ajustar el padding según sea necesario
                 contentAlignment = Alignment.Center
             ) {
-                if(action=="insert"){
-                    insertForm(persona)
+                when (action) {
+                    "insert" -> insertForm(persona)
+                    "delete" -> DeleteForm(allPersonas) { selectedUuid ->
+                        uuid = selectedUuid // Actualiza el UUID con el valor seleccionado
+                    }
+                    "update" -> UpdateForm(allPersonas, { updatedPersona ->
+                        persona = updatedPersona
+                    }, selectedPersona = persona)
                 }
-                if(action=="delete"){
-                    DeleteForm(allPersonas)
-                }
+
             }
 
         },
-        confirmButton = {insertDatabase(persona,viewModel,action)},
+        confirmButton = {
+            when (action) {
+                "insert" -> insertDatabase(persona, viewModel)
+                "delete" -> borrarPersona(uuid, viewModel)
+                "update" -> Button(onClick = { viewModel.update(persona)
+                    onDismiss()
+                    viewModel.allPersonas }) {
+                    Text(text = "Actualizar")
+                }
+            }
+        }
+
     )
 }
 @Composable
-fun insertDatabase(persona:Persona,viewModel: PersonasViewModel,action:String){
+fun insertDatabase(persona:Persona,viewModel: PersonasViewModel){
 
-    if(action=="insert"){
         Button(onClick = {  viewModel.insert(persona) }) {
             Text(text = "Insertar")
         }
-    }
-    if(action=="Delete"){
-        Button(onClick = {  viewModel.insert(persona) }) {
-            Text(text = "Insertar")
-        }
-    }
+
+
 
     Log.i("BBDD", "Insertado ${persona.toString()}" )
 
+}
+@Composable
+fun borrarPersona(uuid:String,viewModel: PersonasViewModel) {
+
+    Button(onClick = { viewModel.delete(uuid) }) {
+        Text(text = "Borrar")
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -252,7 +273,7 @@ fun insertForm(persona:Persona){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DeleteForm(allPersonas: List<Persona>) {
+fun DeleteForm(allPersonas: List<Persona> ,onPersonaSelected: (String) -> Unit) {
     var selectedPersona by remember { mutableStateOf<Persona?>(null) }
     var expanded by remember { mutableStateOf(false) }
 
@@ -278,6 +299,7 @@ fun DeleteForm(allPersonas: List<Persona>) {
                     onClick = {
                         selectedPersona = persona
                         expanded = false
+                        onPersonaSelected(persona.uuid!!)
                     },
                     text = { Text(persona.nombre!!) }
                 )
@@ -286,4 +308,82 @@ fun DeleteForm(allPersonas: List<Persona>) {
     }
 
     // Añadir aquí el botón de borrar si lo necesitas
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun UpdateForm(
+    allPersonas: List<Persona>,
+    onPersonaEdit: (Persona) -> Unit,
+    selectedPersona: Persona,
+
+    ) {
+    var selectedPersona by remember { mutableStateOf<Persona?>(null) }
+    var expanded by remember { mutableStateOf(false) }
+    var nombre by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var sexo by remember { mutableStateOf("") }
+
+    if(selectedPersona == null){
+        ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = { expanded = it }
+        ) {
+            TextField(
+                readOnly = true,
+                value = selectedPersona?.nombre ?: "Seleccione una persona",
+                onValueChange = {},
+                label = { Text("Seleccione una persona") },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                modifier = Modifier.menuAnchor()
+            )
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                allPersonas.forEach { persona ->
+                    DropdownMenuItem(
+                        onClick = {
+                            selectedPersona = persona
+                            nombre = persona.nombre ?: ""
+                            email = persona.mail ?: ""
+                            sexo = persona.sexo ?: ""
+                            expanded = false
+                        },
+                        text = { Text(persona.nombre!!) }
+                    )
+                }
+            }
+        }
+    }
+
+
+    if (selectedPersona != null) {
+        Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+            OutlinedTextField(
+                value = nombre,
+                onValueChange = {
+                    nombre = it
+                    onPersonaEdit(selectedPersona!!.apply { this.nombre = nombre })
+                },
+                label = { Text("Nombre") }
+            )
+            OutlinedTextField(
+                value = email,
+                onValueChange = {
+                    email = it
+                    onPersonaEdit(selectedPersona!!.apply { this.mail = email })
+                },
+                label = { Text("Email") }
+            )
+            OutlinedTextField(
+                value = sexo,
+                onValueChange = {
+                    sexo = it
+                    onPersonaEdit(selectedPersona!!.apply { this.sexo = sexo })
+                },
+                label = { Text("Sexo") }
+            )
+        }
+    }
 }

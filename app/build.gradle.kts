@@ -69,6 +69,13 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     kapt("androidx.room:room-compiler:2.5.2")
+ // pokeapi
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    // Gson Converter para Retrofit
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")

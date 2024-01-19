@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.iti.kotlin_curso.Routes
 import com.iti.kotlin_curso.Routes.Home
 import com.iti.kotlin_curso.databases.RoomCrud
+import com.iti.kotlin_curso.databases.pokeApi.PokemonListScreen
 import com.iti.kotlin_curso.ejercicios.PantallaNoticias
 
 
@@ -32,6 +33,9 @@ fun MainScreen(activity: Activity){
         composable(Routes.EjercicioRutinas.route) {
             PantallaNoticias(navController = navController)
         }
+        composable(Routes.PokeApi.route) {
+            PokemonListScreen()
+        }
         composable(Routes.RoomCrud.route) {
             RoomCrud(navController = navController)
         }
@@ -41,6 +45,10 @@ fun MainScreen(activity: Activity){
         composable(Routes.Kotlin.route,arguments = listOf(navArgument("parteCurso") { type = NavType.StringType })
         ) {backStackEntry ->
             KotlinScreen(navController = navController,activity, parteCurso = backStackEntry.arguments?.getString("parteCurso"))
+        }
+        composable(Routes.Jetpack.route,arguments = listOf(navArgument("parteCurso") { type = NavType.StringType })
+        ) {backStackEntry ->
+            JetpackScreen(navController = navController,activity, parteCurso = backStackEntry.arguments?.getString("parteCurso"))
         }
         composable(Routes.Jetpack.route,arguments = listOf(navArgument("parteCurso") { type = NavType.StringType })
         ) {backStackEntry ->

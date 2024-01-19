@@ -10,4 +10,10 @@ class PersonasRepository(private val personasDao: PersonasDao) {
     suspend fun insert(persona: Persona) {
         personasDao.insertPersona(persona)
     }
+    suspend fun update(persona: Persona) {
+        personasDao.updatePersona(persona)
+    }
+    suspend fun delete(uuid:String) {
+        personasDao.deletePersonaByUuid(uuid)
+    }
 }

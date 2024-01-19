@@ -8,10 +8,17 @@ import com.iti.kotlin_curso.databases.repositories.PersonasRepository
 import kotlinx.coroutines.launch
 
 class PersonasViewModel(private val repository: PersonasRepository) : ViewModel() {
-    val allPersonas: LiveData<List<Persona>> = repository.allPersonas
+    var allPersonas: LiveData<List<Persona>> = repository.allPersonas
 
     fun insert(persona: Persona) = viewModelScope.launch {
         repository.insert(persona)
+    }
+    fun update(persona: Persona) = viewModelScope.launch {
+        repository.update(persona)
+
+    }
+    fun delete(uuid:String) = viewModelScope.launch {
+        repository.delete(uuid)
     }
 
 }
