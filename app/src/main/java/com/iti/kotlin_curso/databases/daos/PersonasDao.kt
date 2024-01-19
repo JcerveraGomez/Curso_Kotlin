@@ -13,6 +13,7 @@ interface PersonasDao {
     @Query("SELECT * FROM personas ORDER BY timestamp DESC")
     fun getAllPersonas(): LiveData<List<Persona>>
 
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPersona(gasto: Persona)
 
