@@ -5,7 +5,7 @@ import retrofit2.Call
 
 
 interface PokeApiService {
-    @GET("pokemon?limit=10")
+    @GET("pokemon?limit=80")
     fun listPokemons(): Call<PokemonResponse>
 }
 

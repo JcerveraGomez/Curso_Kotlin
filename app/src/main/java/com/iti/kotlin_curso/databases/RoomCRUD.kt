@@ -1,6 +1,7 @@
 package com.iti.kotlin_curso.databases
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -32,11 +34,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.iti.kotlin_curso.R
 import com.iti.kotlin_curso.components.DialogCrud
 import com.iti.kotlin_curso.components.customTopBar
 import com.iti.kotlin_curso.databases.database.AppDatabase
@@ -136,22 +140,30 @@ fun RoomCrud (navController:NavController){
                         }
                     }
                 }
-            }
+}
 
 
-        }
-    }
+}
+}
 
 
 }
 
 @Composable
 fun TarjetaPersona(persona: Persona) {
-    Card(modifier = Modifier.padding(8.dp), colors = CardDefaults.cardColors(LightOrange.copy(0.3f))) {
+    Card(modifier = Modifier.padding(8.dp).fillMaxWidth(), colors = CardDefaults.cardColors(LightOrange.copy(0.3f))) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(persona.nombre!!, style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(8.dp))
             Text(persona.mail!!)
+            Spacer(modifier = Modifier.height(8.dp))
+
+
+            if (persona.sexo == "Hombre") {
+                Image(painter = painterResource(id = R.drawable.male), contentDescription = "Imagen de hombre",modifier = Modifier.size(20.dp))
+            } else if (persona.sexo == "Mujer") {
+                Image(painter = painterResource(id = R.drawable.female), contentDescription = "Imagen de mujer",modifier = Modifier.size(20.dp))
+            }
         }
     }
 }

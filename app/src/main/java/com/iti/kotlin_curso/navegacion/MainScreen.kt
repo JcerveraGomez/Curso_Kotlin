@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.iti.kotlin_curso.Routes
 import com.iti.kotlin_curso.Routes.Home
 import com.iti.kotlin_curso.databases.RoomCrud
+import com.iti.kotlin_curso.databases.SharedPreferencesDemoScreen
 import com.iti.kotlin_curso.databases.pokeApi.PokemonListScreen
 import com.iti.kotlin_curso.ejercicios.PantallaNoticias
 
@@ -34,7 +35,10 @@ fun MainScreen(activity: Activity){
             PantallaNoticias(navController = navController)
         }
         composable(Routes.PokeApi.route) {
-            PokemonListScreen()
+            PokemonListScreen(navController = navController)
+        }
+        composable(Routes.SharedPreferences.route) {
+            SharedPreferencesDemoScreen(navController = navController)
         }
         composable(Routes.RoomCrud.route) {
             RoomCrud(navController = navController)

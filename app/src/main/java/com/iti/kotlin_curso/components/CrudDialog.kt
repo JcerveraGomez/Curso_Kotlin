@@ -18,7 +18,9 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
@@ -96,10 +98,10 @@ var persona = Persona()
             when (action) {
                 "insert" -> insertDatabase(persona, viewModel)
                 "delete" -> borrarPersona(uuid, viewModel)
-                "update" -> Button(onClick = { viewModel.update(persona)
+                "update" -> IconButton(onClick = { viewModel.update(persona)
                     onDismiss()
                     viewModel.allPersonas }) {
-                    Text(text = "Actualizar")
+                    Icon(Icons.Filled.Refresh, contentDescription = null)
                 }
             }
         }
@@ -109,8 +111,8 @@ var persona = Persona()
 @Composable
 fun insertDatabase(persona:Persona,viewModel: PersonasViewModel){
 
-        Button(onClick = {  viewModel.insert(persona) }) {
-            Text(text = "Insertar")
+        IconButton(onClick = {  viewModel.insert(persona) }) {
+            Icon(Icons.Filled.Add, contentDescription = null)
         }
 
 
@@ -121,8 +123,8 @@ fun insertDatabase(persona:Persona,viewModel: PersonasViewModel){
 @Composable
 fun borrarPersona(uuid:String,viewModel: PersonasViewModel) {
 
-    Button(onClick = { viewModel.delete(uuid) }) {
-        Text(text = "Borrar")
+    IconButton(onClick = { viewModel.delete(uuid) }) {
+        Icon(Icons.Filled.Delete, contentDescription = null)
     }
 }
 

@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
@@ -21,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.iti.kotlin_curso.Routes
 import com.iti.kotlin_curso.components.customTopBar
@@ -47,10 +50,11 @@ fun ApiScreen(navController: NavController) {
                 Row(modifier = Modifier.padding(10.dp), horizontalArrangement = Arrangement.Center) {
                     Box(modifier = Modifier.padding(horizontal = 10.dp)) {
                         ElevatedButton(
+                            modifier=Modifier.width(100.dp),
                             shape = RoundedCornerShape(20),
                             colors = ButtonDefaults.elevatedButtonColors(containerColor = LightOrange),
                             onClick = { navController.navigate("RoomCrud")}) {
-                            Text(text = "CRUD ROOM", color = Color.Black)
+                            Text(text = "Crud", color = Color.Black)
                         }
                     }
 
@@ -58,6 +62,8 @@ fun ApiScreen(navController: NavController) {
 
                     Box(modifier = Modifier.padding(horizontal = 10.dp)) {
                         ElevatedButton(
+                            modifier=Modifier.width(100.dp),
+
                             shape = RoundedCornerShape(20),
                             colors = ButtonDefaults.elevatedButtonColors(containerColor = LightOrange),
                             onClick = { navController.navigate("PokeApi")}) {
@@ -65,27 +71,32 @@ fun ApiScreen(navController: NavController) {
 
                         }
                     }
-                    Box(modifier = Modifier.padding(horizontal = 10.dp)) {
+
+
+                }
+                Row(
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .fillMaxWidth(), // Asegura que el Row ocupe todo el ancho
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .padding(horizontal = 10.dp), contentAlignment = Alignment.Center
+                           // Alinea el Box (y por lo tanto, el botón) al centro horizontalmente
+                    ) {
                         ElevatedButton(
                             shape = RoundedCornerShape(20),
                             colors = ButtonDefaults.elevatedButtonColors(containerColor = LightOrange),
-                            onClick = { navController.navigate(Routes.Kotlin.createRoute("Rutinas")) }) {
-                            Text(text = "Rutinas", color = Color.Black)
-
+                            onClick = { navController.navigate("SharedPreferences")}
+                        ) {
+                            Text(text = "Shared Preferences", color = Color.Black)
                         }
                     }
-
                 }
                 Text(text ="UI")
                 Row(modifier = Modifier.padding(10.dp)) {
-                    Box(modifier = Modifier.padding(horizontal = 10.dp)) {
-                        ElevatedButton(
-                            shape = RoundedCornerShape(20),
-                            colors = ButtonDefaults.elevatedButtonColors(containerColor = LightOrange),
-                            onClick = { navController.navigate(Routes.Jetpack.createRoute("Scaffolding")) }) {
-                            Text(text = "Scaffolding", color = Color.Black)
-                        }
-                    }
+
 
 
 

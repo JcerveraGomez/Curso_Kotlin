@@ -15,4 +15,5 @@ sealed class Routes(val route: String) {
     object ApiScreen : Routes("ApiScreen")
     object RoomCrud : Routes("RoomCrud")
     object PokeApi : Routes("PokeApi")
+    object SharedPreferences : Routes("SharedPreferences")
 }
