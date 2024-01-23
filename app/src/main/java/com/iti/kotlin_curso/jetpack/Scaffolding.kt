@@ -29,14 +29,13 @@ import com.iti.kotlin_curso.ui.theme.Orange
 @Composable
 fun Scaffolding() {
     var boxAlignment by remember { mutableStateOf(Alignment.Center) }
-    var columnArrangement by remember { mutableStateOf(Arrangement.Center) }
     var rowArrangement by remember { mutableStateOf(Arrangement.Start) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = columnArrangement,
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(horizontalArrangement = rowArrangement) {
@@ -106,6 +105,17 @@ fun Scaffolding() {
                 )
             ) {
                 Text("Bottom End", color = Color.White)
+            }
+
+        }
+        Row {
+            Button(
+                onClick = { boxAlignment = Alignment.Center},
+                colors = ButtonDefaults.buttonColors(
+                    Orange
+                )
+            ) {
+                Text("Reset", color = Color.White)
             }
         }
         Spacer(modifier = Modifier.height(16.dp))

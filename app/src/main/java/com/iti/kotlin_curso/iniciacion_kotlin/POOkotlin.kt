@@ -31,32 +31,30 @@ class Animal(val name: String) {
 }
 //HERENCIA
 //Kotlin permite que una clase herede métodos y propiedades de otra.
-open class AnimalHerencia(val name: String) {
-    open fun makeSoundHerencia(): String {
-        return "$name hace un sonido"
+// Superclase
+open class Figura {
+    open fun area(): Double {
+        return 0.0
     }
 }
 
-class Perro(name: String) : AnimalHerencia(name) {
-    override fun makeSoundHerencia(): String {
-        return "$name ladra"
+// Subclase Circulo
+class Circulo(val radio: Double) : Figura() {
+    override fun area(): Double {
+        return Math.PI * radio * radio
     }
 }
+
+// Subclase Rectangulo
+
 //POLIMORFISMO
 //El polimorfismo permite tratar a un objeto de una subclase como si fuera de su superclase.
-open class AnimalPolimorfismo {
-    open fun makeSoundPolimorfismo():String {
-        return "El animal hace sonido"
-
-    }
+fun imprimirArea(figura: Figura):String{
+    return "El área de la figura es ${figura.area()}"
 }
+//En este ejemplo, imprimirArea() puede aceptar cualquier objeto que sea una subclase de Figura.
+// Cuando se llama a area(), se ejecuta la versión del método que corresponde a la subclase real del objeto, no la versión en Figura.
 
-class PerroPolimorfismo : AnimalPolimorfismo() {
-    override fun makeSoundPolimorfismo():String {
-        return "El perro ladra"
-    }
-}
-// Encapsulamiento
 // Encapsulamiento es el principio de ocultar el estado interno de un objeto
 // y exigir que toda interacción se realice a través de métodos.
 class BankAccount(private var balance: Int) {
@@ -78,8 +76,7 @@ class BankAccount(private var balance: Int) {
 fun POOkotlin() {
 
     val Perro: Animal = Animal("Perro")
-    val PerroHerencia: Perro = Perro("PerroHerencia")
-    val PerroPolimorfismo:PerroPolimorfismo=PerroPolimorfismo()
+    val circulo = Circulo(5.0)
     //Encapsulamiento
 
 
@@ -122,7 +119,7 @@ fun POOkotlin() {
             ) {
                 Row(modifier = Modifier.padding(horizontal = 10.dp, 5.dp)) {
                     Text(
-                        text = "Classe Animal Herencia",
+                        text = "Classe Figura Herencia",
                         fontSize = 25.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -130,7 +127,7 @@ fun POOkotlin() {
                 }
                 Row(modifier = Modifier.padding(horizontal = 10.dp, 5.dp)) {
                     Text(
-                        text = "${PerroHerencia.makeSoundHerencia()}",
+                        text = "Area: ${circulo.area()}",
                         fontWeight = FontWeight.Normal,
                         fontSize = 18.sp
                     )
@@ -148,7 +145,7 @@ fun POOkotlin() {
             ) {
                 Row(modifier = Modifier.padding(horizontal = 10.dp, 5.dp)) {
                     Text(
-                        text = "Classe Animal Polimorfismo",
+                        text = "Classe Figura Polimorfismo",
                         fontSize = 25.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -156,7 +153,7 @@ fun POOkotlin() {
                 }
                 Row(modifier = Modifier.padding(horizontal = 10.dp, 5.dp)) {
                     Text(
-                        text = "${PerroPolimorfismo.makeSoundPolimorfismo()}",
+                        text = "${ imprimirArea(circulo)}",
                         fontWeight = FontWeight.Normal,
                         fontSize = 18.sp
                     )

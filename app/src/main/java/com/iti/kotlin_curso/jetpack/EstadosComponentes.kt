@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -76,7 +77,7 @@ fun EstadosComponentes() {
                             Orange
                         )
                     ) {
-                        Text("Count++")
+                        Text("Count++", color = Color.White)
                     }
 
                 }
@@ -177,7 +178,7 @@ fun LaunchedEffectExample() {
                 Orange
             )
         ) {
-            Text("Reset Contador")
+            Text("Reset Contador", color = Color.White)
         }
     }
 
@@ -226,7 +227,7 @@ fun SideEffectExample() {
             Button(onClick = { count++ }, colors = ButtonDefaults.buttonColors(
                 Orange
             )) {
-                Text("Incrementar contador")
+                Text("Incrementar contador", color = Color.White)
             }
 
         }

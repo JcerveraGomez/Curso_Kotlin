@@ -44,6 +44,7 @@ fun Rutinas(){
 
     //Al poner "rembember" entonces tiene en cuenta cada recomposicion del composable es decir se adhiere al ciclo de vida del composable
     val coroutineScope = rememberCoroutineScope()
+    var counter by remember { mutableStateOf(0) }
 
     // Se utiliza para referenciar la ejecucion de la corutina
     var job: Job? by remember { mutableStateOf(null) }
@@ -83,21 +84,16 @@ fun Rutinas(){
                         fontSize = 25.sp,
                         fontWeight = FontWeight.Bold
                     )
-
                 }
                 Row(modifier = Modifier.padding(horizontal = 10.dp, 5.dp)) {
-                    Text(text = text)
-
-
+                    Text(text = "Contador: $counter")
                 }
                 Row(modifier = Modifier.padding(horizontal = 10.dp, 5.dp)) {
                     Button(onClick = {
                         job = coroutineScope.launch {
-
                             while (isActive) {
-
-                                text = "Actualizado en: ${System.currentTimeMillis()}"
-                                delay(1000) // Simula una tarea que consume tiempo
+                                counter++
+                                delay(1000) // Incrementa el contador cada segundo
                             }
                         }
                     }) {
@@ -117,17 +113,26 @@ fun Rutinas(){
                     Button(onClick = {
                         job = coroutineScope.launch {
                             while (isActive) {
-                                text = "Reanudado en: ${System.currentTimeMillis()}"
-                                delay(1000) // Simula una tarea que consume tiempo
+                                counter++
+                                delay(1000) // Incrementa el contador cada segundo
                             }
                         }
                     }) {
                         Text("Reanudar", color = Color.White)
                     }
+
+
                 }
-
-
+                Row (modifier = Modifier.padding(horizontal = 10.dp, 5.dp)){
+                    Button(onClick = {
+                        counter = 0
+                    }) {
+                        Text("Resetear", color = Color.White)
+                    }
+                }
             }
+
+
             Card(
                 modifier = Modifier
                     .padding(10.dp)
