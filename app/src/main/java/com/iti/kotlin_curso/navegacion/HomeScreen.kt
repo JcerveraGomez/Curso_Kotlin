@@ -158,49 +158,7 @@ fun HomeScreen(navController: NavController, activity: Activity) {
 
                 }
 
-                Row(modifier = Modifier.padding(10.dp)) {
-                    Box(modifier = Modifier.padding(horizontal = 10.dp)) {
-                        ElevatedButton(
-                            shape = RoundedCornerShape(20),
-                            colors = ButtonDefaults.elevatedButtonColors(containerColor = LightOrange),
-                            onClick = { navController.navigate("Login") }) {
-                            Icon(
-                                imageVector = Icons.Default.Lock,
-                                contentDescription = "Advertencia",
-                                modifier = Modifier.padding(15.dp),
-                                tint = Color.White
-                            )
-                        }
-                    }
 
-                    Box(modifier = Modifier.padding(horizontal = 10.dp)) {
-                        ElevatedButton(
-                            shape = RoundedCornerShape(20),
-                            colors = ButtonDefaults.elevatedButtonColors(containerColor = LightOrange),
-                            onClick = { navController.navigate("Login") }) {
-                            Icon(
-                                imageVector = Icons.Default.Lock,
-                                contentDescription = "Advertencia",
-                                modifier = Modifier.padding(15.dp),
-                                tint = Color.White
-                            )
-                        }
-                    }
-                    Box(modifier = Modifier.padding(horizontal = 10.dp)) {
-                        ElevatedButton(
-                            shape = RoundedCornerShape(20),
-                            colors = ButtonDefaults.elevatedButtonColors(containerColor = LightOrange),
-                            onClick = { navController.navigate("Login") }) {
-                            Icon(
-                                imageVector = Icons.Default.Lock,
-                                contentDescription = "Advertencia",
-                                modifier = Modifier.padding(15.dp),
-                                tint = Color.White
-                            )
-                        }
-                    }
-
-                }
 
 
             }
